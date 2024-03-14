@@ -15,7 +15,7 @@ const Server = http.createServer(app);
 
 //attach socker.io
 const io = socketIo(Server);
-// app.use(cors);
+app.use(cors());
 // Set the view engine to EJS
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
