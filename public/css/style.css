@@ -1,0 +1,191 @@
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100vh;
+  min-width: 100vw;
+  background-color: #d2e8ff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  max-width: 300px;
+  /* height: 400px; */
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 8px;
+  overflow: hidden;
+  /* padding: 10px; */
+}
+h1 {
+  color: white;
+  padding: 4px 8px;
+  margin: 0;
+  background-color: #3691ef;
+}
+
+.chatbox {
+  display: flex;
+  flex-direction: column;
+
+  height: 400px;
+  /* background-color: red; */
+  position: relative;
+  padding: 8px;
+  padding-bottom: 0;
+}
+
+.messagebox {
+  overflow: auto;
+  padding-top: 8px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.messagebox::-webkit-scrollbar {
+  display: none;
+}
+
+/* CSS for messages aligned to the left (received messages) */
+.message-left {
+  position: relative;
+  align-self: flex-start;
+  background-color: #f2f2f2; /* Light gray background */
+  color: #333; /* Dark text color */
+  padding: 10px;
+  margin: 25px 20px 5px 10px; /* Adjust margins as needed */
+  border-radius: 15px; /* Rounded corners */
+  max-width: 70%; /* Maximum width of the message */
+}
+
+/* CSS for messages aligned to the right (sent messages) */
+.message-right {
+  position: relative;
+  align-self: flex-end;
+  background-color: #007bff; /* Blue background */
+  color: #fff; /* White text color */
+  padding: 10px;
+  margin: 25px 10px 5px 20px; /* Adjust margins as needed */
+  border-radius: 15px; /* Rounded corners */
+  max-width: 70%; /* Maximum width of the message */
+  text-align: right; /* Align text to the right */
+}
+p {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.message-owner-tag {
+  position: absolute; /* Position absolute for positioning at the top */
+  top: -15px; /* Adjust the distance from the top of the message */
+  font-size: 12px; /* Adjust font size as needed */
+  color: #888; /* Color of the tag */
+}
+
+/* CSS for the tag indicating the message owner in left-aligned messages */
+.message-left .message-owner-tag {
+  left: 5px; /* Adjust the distance from the left side */
+}
+
+/* CSS for the tag indicating the message owner in right-aligned messages */
+.message-right .message-owner-tag {
+  right: 5px; /* Adjust the distance from the right side */
+}
+
+.textbox {
+  width: 100%;
+  display: flex;
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 14%); /* Shadow effect */
+}
+
+#messageInput {
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  height: 40px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  flex: 1;
+  margin-right: 8px;
+}
+
+.submit-btn {
+  background: none;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.submit-btn img {
+  width: 25px;
+  aspect-ratio: 1;
+  cursor: pointer;
+}
+
+#ellipsisAnimation {
+  font-size: 24px;
+  line-height: 0;
+}
+
+.ellipse {
+  width: 20px;
+  height: 15px;
+  margin-bottom: 8px;
+}
+
+#ellipsisAnimation::before {
+  content: "...";
+  animation: typing-ellipsis 1s steps(3) infinite;
+}
+
+@keyframes typing-ellipsis {
+  0% {
+    content: "";
+  }
+  25% {
+    content: ".";
+  }
+  50% {
+    content: "..";
+  }
+  75% {
+    content: "...";
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+@media screen and (max-width: 1180px) {
+  body {
+    background: none;
+  }
+  .chat-container {
+    width: 100%;
+    height: 100vh;
+    max-width: 100%;
+  }
+
+  .chatbox {
+    height: auto;
+    flex: 1;
+  }
+
+  .chat-container {
+    border-radius: 0;
+  }
+
+  .submit-btn img {
+    width: 35px;
+  }
+
+  #messageInput {
+    font-size: 16px;
+    height: 64px;
+  }
+}

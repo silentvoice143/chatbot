@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Socket.IO Example</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <div class="chat-container">
+      <h1>Chatbot</h1>
+      <div class="chatbox">
+        <div class="messagebox"></div>
+      </div>
+      <form id="messageForm" class="textbox">
+        <input
+          type="text"
+          id="messageInput"
+          autocomplete="off"
+          placeholder="Enter message"
+        />
+        <button class="submit-btn hidden" type="submit" id="sendbtn">
+          <img src="./img/send-message.png" alt="" srcset="" />
+        </button>
+        <button class="submit-btn mic-btn" id="mic">
+          <img src="./img/mic_black.png" alt="" srcset="" />
+        </button>
+      </form>
+    </div>
+
+    <script type="text/javascript" src="js/script.js"></script>
+    <script>
+      var socket = io();
+      var parentElement = document.querySelectorAll(".messagebox")[0];
+      var loadingElement = document.createElement("div");
+      loadingElement.classList.add("message-left");
+      loadingElement.classList.add("typing");
+      loadingElement.classList.add("ellipse");
+      loadingElement.innerHTML = `
+            <p class="message-owner-tag">Bot</p>
+            <p id="ellipsisAnimation"></p>
+          `;
+      document
+        .getElementById("messageForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          var message = document.getElementById("messageInput").value;
+          if (message === "") {
+            return;
+          }
+          document.getElementById("messageInput").value = "";
+          // console.log(message);
+          var divElement = document.createElement("div");
+          divElement.classList.add("message-right");
+          divElement.innerHTML = `<p class="message-owner-tag">Bot</p>
+            <p>${message}</p>`;
+          // console.log(divElement);
+          parentElement.appendChild(divElement);
+          parentElement.appendChild(loadingElement);
+
+          scrollMessageBoxToBottom();
+
+          // console.log(parentElement);
+          socket.emit("message", message);
+        });
+
+      socket.on("response", function (data) {
+        // document.getElementById("response").innerHTML = data;
+        var loadingIndicator = parentElement.querySelector(".typing");
+        if (loadingIndicator) {
+          parentElement.removeChild(loadingIndicator);
+        }
+
+        var divElement = document.createElement("div");
+        divElement.classList.add("message-left");
+        divElement.innerHTML = `<p class="message-owner-tag">Bot</p>
+            <p>${data}</p>`;
+
+        parentElement.appendChild(divElement);
+        scrollMessageBoxToBottom();
+
+        synthVoice(data);
+      });
+    </script>
+  </body>
+</html>
