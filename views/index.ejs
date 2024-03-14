@@ -29,7 +29,7 @@
       </form>
     </div>
 
-    <script type="text/javascript" src="js/script.js"></script>
+    <script type="text/javascript" src="./js/script.js"></script>
     <script>
       var socket = io();
       var parentElement = document.querySelectorAll(".messagebox")[0];
@@ -53,13 +53,16 @@
           // console.log(message);
           var divElement = document.createElement("div");
           divElement.classList.add("message-right");
-          divElement.innerHTML = `<p class="message-owner-tag">Bot</p>
+          divElement.innerHTML = `<p class="message-owner-tag">${user}</p>
             <p>${message}</p>`;
           // console.log(divElement);
           parentElement.appendChild(divElement);
           parentElement.appendChild(loadingElement);
 
           scrollMessageBoxToBottom();
+
+          sendbtn.classList.add("hidden");
+          mic.classList.remove("hidden");
 
           // console.log(parentElement);
           socket.emit("message", message);

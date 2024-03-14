@@ -13,7 +13,7 @@ const port = 3000;
 //create http server using express app.
 const Server = http.createServer(app);
 
-//attack socker.io
+//attach socker.io
 const io = socketIo(Server);
 // app.use(cors);
 // Set the view engine to EJS

@@ -1,3 +1,5 @@
+const user = prompt("Enter your name");
+
 function scrollMessageBoxToBottom() {
   var messageBox = document.getElementsByClassName("messagebox")[0];
   messageBox.scrollTop = messageBox.scrollHeight;
@@ -20,10 +22,23 @@ inputBox.addEventListener("focus", function (event) {
 // Add event listener
 inputBox.addEventListener("blur", function (event) {
   // This function will be called whenever the input blur
-  mic.classList.remove("hidden");
-  sendbtn.classList.add("hidden");
+  if (inputBox.value === "") {
+    mic.classList.remove("hidden");
+    sendbtn.classList.add("hidden");
+  }
   // You can perform any actions you need here
 });
+
+// // Add event listener
+// inputBox.addEventListener("input", function (event) {
+//   // This function will be called whenever the input blur
+
+//   if (inputBox.value === "") {
+//     sendbtn.classList.add("hidden");
+//     mic.classList.remove("hidden");
+//   }
+//   // You can perform any actions you need here
+// });
 
 var socket = io();
 
@@ -47,7 +62,7 @@ recognition.onresult = function (event) {
   const transcript = event.results[0][0].transcript;
   var divElement = document.createElement("div");
   divElement.classList.add("message-right");
-  divElement.innerHTML = `<p class="message-owner-tag">Bot</p>
+  divElement.innerHTML = `<p class="message-owner-tag">${user}</p>
             <p>${transcript}</p>`;
   // console.log(divElement);
   parentElement.appendChild(divElement);
